@@ -1,7 +1,3 @@
----
-title: "README"
-output: html_document
----
 
 ### Introduction
 
@@ -191,5 +187,5 @@ run_analysis.R runs in the directory that contains the Samson data and produces 
 * column binding subject, activity, and step5_features_values, we obtain step5_data_set whcih satisfies the criteria fo a tidy data set.
 
   
-* finally, we write step5_data_set to a text tile
+* finally, we write step5_data_set to a text file
 

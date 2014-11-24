@@ -1,138 +1,141 @@
----
-title: "CodeBook"
-output: html_document
----
+###CodeBook
 
 The tide data set produced by run_analysis.R include the following columns:
 
-subject: ID of subject on whom the obsevations were made
+* subject: ID of subject on whom the obsevations were made
     integer in [1,30]
     
-activity: activity of the subject at the time the observation was made
+* activity: activity of the subject at the time the observation was made
     factor of 6 levels: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
 
 
-variables:
+* variables:
     The variables are averages of each variable on the mean and standard deviation for each measurement in the provided Samson data for 
     each activity and each subject. The variable column name has the form Average.corresponding_samson_data_set_variable_volumn_name. 
     All variables have numeric values in [-1,1].
     
     
-Average.tBodyAcc.mean...X 
-Average.tBodyAcc.mean...Y 
-Average.tBodyAcc.mean...Z
+        Average.tBodyAcc.mean...X 
+        Average.tBodyAcc.mean...Y 
+        Average.tBodyAcc.mean...Z
                             
-Average.tGravityAcc.mean...X 
-Average.tGravityAcc.mean...Y 
-Average.tGravityAcc.mean...Z
+        Average.tGravityAcc.mean...X 
+        Average.tGravityAcc.mean...Y 
+        Average.tGravityAcc.mean...Z
 
-Average.tBodyAccJerk.mean...X 
-Average.tBodyAccJerk.mean...Y 
-Average.tBodyAccJerk.mean...Z
+        Average.tBodyAccJerk.mean...X 
+        Average.tBodyAccJerk.mean...Y 
+        Average.tBodyAccJerk.mean...Z
                            
-Average.tBodyGyro.mean...X 
-Average.tBodyGyro.mean...Y 
-Average.tBodyGyro.mean...Z 
-Average.tBodyGyroJerk.mean...X
+        Average.tBodyGyro.mean...X 
+        Average.tBodyGyro.mean...Y 
+        Average.tBodyGyro.mean...Z 
+        Average.tBodyGyroJerk.mean...X
                              
-Average.tBodyGyroJerk.mean...Y 
-Average.tBodyGyroJerk.mean...Z 
-Average.tBodyAccMag.mean..
+        Average.tBodyGyroJerk.mean...Y 
+        Average.tBodyGyroJerk.mean...Z 
+        Average.tBodyAccMag.mean..
                           
-Average.tGravityAccMag.mean.. 
-Average.tBodyAccJerkMag.mean.. 
-Average.tBodyGyroMag.mean..
+        Average.tGravityAccMag.mean.. 
+        Average.tBodyAccJerkMag.mean.. 
+        Average.tBodyGyroMag.mean..
 
-Average.tBodyGyroJerkMag.mean.. 
-Average.fBodyAcc.mean...X 
-Average.fBodyAcc.mean...Y 
-Average.fBodyAcc.mean...Z
+        Average.tBodyGyroJerkMag.mean.. 
+        Average.fBodyAcc.mean...X 
+        Average.fBodyAcc.mean...Y 
+        Average.fBodyAcc.mean...Z
 
-Average.fBodyAcc.meanFreq...X 
-Average.fBodyAcc.meanFreq...Y 
-Average.fBodyAcc.meanFreq...Z
+        Average.fBodyAcc.meanFreq...X 
+        Average.fBodyAcc.meanFreq...Y 
+        Average.fBodyAcc.meanFreq...Z
                             
-Average.fBodyAccJerk.mean...X 
-Average.fBodyAccJerk.mean...Y 
-Average.fBodyAccJerk.mean...Z
+        Average.fBodyAccJerk.mean...X 
+        Average.fBodyAccJerk.mean...Y 
+        Average.fBodyAccJerk.mean...Z
                                 
-Average.fBodyAccJerk.meanFreq...X 
-Average.fBodyAccJerk.meanFreq...Y 
-Average.fBodyAccJerk.meanFreq...Z
+        Average.fBodyAccJerk.meanFreq...X 
+        Average.fBodyAccJerk.meanFreq...Y 
+        Average.fBodyAccJerk.meanFreq...Z
  
-Average.fBodyGyro.mean...X 
-Average.fBodyGyro.mean...Y 
-Average.fBodyGyro.mean...Z 
-Average.fBodyGyro.meanFreq...X
+        Average.fBodyGyro.mean...X 
+        Average.fBodyGyro.mean...Y 
+        Average.fBodyGyro.mean...Z 
+        Average.fBodyGyro.meanFreq...X
 
-Average.fBodyGyro.meanFreq...Y 
-Average.fBodyGyro.meanFreq...Z 
-Average.fBodyAccMag.mean..
+        Average.fBodyGyro.meanFreq...Y 
+        Average.fBodyGyro.meanFreq...Z 
+        Average.fBodyAccMag.mean..
 
-Average.fBodyAccMag.meanFreq.. 
-Average.fBodyBodyAccJerkMag.mean.. 
-Average.fBodyBodyAccJerkMag.meanFreq..
+        Average.fBodyAccMag.meanFreq.. 
+        Average.fBodyBodyAccJerkMag.mean.. 
+        Average.fBodyBodyAccJerkMag.meanFreq..
   
-Average.fBodyBodyGyroMag.mean.. 
-Average.fBodyBodyGyroMag.meanFreq.. 
-Average.fBodyBodyGyroJerkMag.mean..
-Average.fBodyBodyGyroJerkMag.meanFreq.. 
-Average.tBodyAcc.std...X 
-Average.tBodyAcc.std...Y
+        Average.fBodyBodyGyroMag.mean.. 
+        Average.fBodyBodyGyroMag.meanFreq.. 
+        Average.fBodyBodyGyroJerkMag.mean..
+        Average.fBodyBodyGyroJerkMag.meanFreq.. 
+        Average.tBodyAcc.std...X 
+        Average.tBodyAcc.std...Y
 
-Average.tBodyAcc.std...Z 
-Average.tGravityAcc.std...X 
-Average.tGravityAcc.std...Y 
-Average.tGravityAcc.std...Z
-Average.tBodyAccJerk.std...X Average.tBodyAccJerk.std...Y Average.tBodyAccJerk.std...Z Average.tBodyGyro.std...X
+        Average.tBodyAcc.std...Z 
+        Average.tGravityAcc.std...X 
+        Average.tGravityAcc.std...Y 
+        Average.tGravityAcc.std...Z
+        Average.tBodyAccJerk.std...X 
+        Average.tBodyAccJerk.std...Y 
+        Average.tBodyAccJerk.std...Z 
+        Average.tBodyGyro.std...X
 
-Average.tBodyGyro.std...Y 
-Average.tBodyGyro.std...Z 
-Average.tBodyGyroJerk.std...X 
-Average.tBodyGyroJerk.std...Y
-Average.tBodyGyroJerk.std...Z 
-Average.tBodyAccMag.std.. 
-Average.tGravityAccMag.std..
-Average.tBodyAccJerkMag.std.. Average.tBodyGyroMag.std.. Average.tBodyGyroJerkMag.std.. Average.fBodyAcc.std...X
-Average.fBodyAcc.std...Y 
-Average.fBodyAcc.std...Z 
-Average.fBodyAccJerk.std...X 
-Average.fBodyAccJerk.std...Y
-Average.fBodyAccJerk.std...Z 
-Average.fBodyGyro.std...X 
-Average.fBodyGyro.std...Y 
-Average.fBodyGyro.std...Z
-Average.fBodyAccMag.std.. 
-Average.fBodyBodyAccJerkMag.std.. 
-Average.fBodyBodyGyroMag.std..
-Average.fBodyBodyGyroJerkMag.std.. 
-Average.angle.tBodyAccMean.gravity.
-Average.angle.tBodyAccJerkMean..gravityMean. 
-Average.angle.tBodyGyroMean.gravityMean.
-Average.angle.tBodyGyroJerkMean.gravityMean. 
-Average.angle.X.gravityMean. 
-Average.angle.Y.gravityMean.
-Average.angle.Z.gravityMean.
+        Average.tBodyGyro.std...Y 
+        Average.tBodyGyro.std...Z 
+        Average.tBodyGyroJerk.std...X 
+        Average.tBodyGyroJerk.std...Y
+        Average.tBodyGyroJerk.std...Z 
+        Average.tBodyAccMag.std.. 
+        Average.tGravityAccMag.std..
+        Average.tBodyAccJerkMag.std.. 
+        Average.tBodyGyroMag.std..
+        Average.tBodyGyroJerkMag.std.. 
+        Average.fBodyAcc.std...X
+        Average.fBodyAcc.std...Y 
+        Average.fBodyAcc.std...Z 
+        Average.fBodyAccJerk.std...X 
+        Average.fBodyAccJerk.std...Y
+        Average.fBodyAccJerk.std...Z 
+        Average.fBodyGyro.std...X 
+        Average.fBodyGyro.std...Y 
+        Average.fBodyGyro.std...Z
+        Average.fBodyAccMag.std.. 
+        Average.fBodyBodyAccJerkMag.std.. 
+        Average.fBodyBodyGyroMag.std..
+        Average.fBodyBodyGyroJerkMag.std.. 
+        Average.angle.tBodyAccMean.gravity.
+        Average.angle.tBodyAccJerkMean..gravityMean. 
+        Average.angle.tBodyGyroMean.gravityMean.
+        Average.angle.tBodyGyroJerkMean.gravityMean. 
+        Average.angle.X.gravityMean. 
+        Average.angle.Y.gravityMean.
+        Average.angle.Z.gravityMean.
 
-Attached description of Samson data set
+##Attached description of Samson data set
 
 Human Activity Recognition Using Smartphones Dataset
 Version 1.0
-==================================================================
+
 Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
 Smartlab - Non Linear Complex Systems Laboratory
 DITEN - Università degli Studi di Genova.
 Via Opera Pia 11A, I-16145, Genoa, Italy.
 activityrecognition@smartlab.ws
 www.smartlab.ws
-==================================================================
+
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
 
 The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features_info.txt' for more details. 
 
 For each record it is provided:
-======================================
+
 
 - Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
 - Triaxial Angular velocity from the gyroscope. 
@@ -141,7 +144,7 @@ For each record it is provided:
 - An identifier of the subject who carried out the experiment.
 
 The dataset includes the following files:
-=========================================
+
 
 - 'README.txt'
 
@@ -170,14 +173,14 @@ The following files are available for the train and test data. Their description
 - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
 
 Notes: 
-======
+
 - Features are normalized and bounded within [-1,1].
 - Each feature vector is a row on the text file.
 
 For more information about this dataset contact: activityrecognition@smartlab.ws
 
 License:
-========
+
 Use of this dataset in publications must be acknowledged by referencing the following publication [1] 
 
 [1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
@@ -187,8 +190,8 @@ This dataset is distributed AS-IS and no responsibility implied or explicit can 
 Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
 
 
-Feature Selection 
-=================
+##Feature Selection 
+
 
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
