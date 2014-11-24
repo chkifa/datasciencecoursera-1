@@ -176,15 +176,15 @@ run_analysis.R runs in the directory that contains the Samson data and produces 
 *  The second column of setp5_data_set will be activity, repeating the sequence WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING,
    STANDING, LAYING repeating 30 times.
    
-*  for each variable in step4_data_set, there will be a corresponding new variable in step5_data_set to represent its averages of a certain
-   subject doing a certain activity. Therefore, step5_data_set will have the same number of variables (86) as step4_data_set; let's name each
-   new variable column Average.corresponding_setp4_data_set_variable_volumn_name
+*  for each variable in step4_data_set, there will be a corresponding new variable in step5_data_set to represent its averages of the senario when  
+   a certain subject does a certain activity. Therefore, step5_data_set will have the same number of variables (86) as step4_data_set; 
+   let's name each new variable column Average.corresponding_setp4_data_set_variable_volumn_name
    
 *  we first create a 180 x 86 matrix step5_features_values filled with 0s as a place holder for values of the new variables; we then
    calculate the actual means of the step4_data_set variables for each subject doing each activity and save them in the right place in the 
    matrix.
     
-* column binding subject, activity, and step5_features_values, we obtain step5_data_set whcih satisfies the criteria fo a tidy data set.
+* column binding subject, activity, and step5_features_values, we obtain step5_data_set whcih satisfies the criteria of a tidy data set.
 
   
 * finally, we write step5_data_set to a text file
