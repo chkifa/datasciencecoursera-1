@@ -1,0 +1,191 @@
+```{r global_options, include=FALSE}
+library(knitr)
+
+opts_chunk$set( fig.path='Figs/', cache = TRUE, 
+               echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+---
+
+#Prediction Assignment Writeup                                               
+         
+---
+
+
+For this project we are given a [training set](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv) and a [testing set](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv) from the [weight lifting excercise dataset](http://groupware.les.inf.puc-rio.br/har) generously provided by 
+Velloso, E., Bulling, A., Gellersen, H., Ugulino, W. and Fuks, H. in their paper [_Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013._](http://groupware.les.inf.puc-rio.br/public/papers/2013.Velloso.QAR-WLE.pdf)
+
+In the data sets, the outcome is identified by variable "classe". Our goal is to build a prediction model on the training set using a subset of other variables as predictors and apply this model on the testing set to predict the outcome.
+
+
+##Data Processing
+
+---
+
+###Read data
+
+---
+
+
+```{r}
+download_file <- function(file_name, file_url){
+        if (!file.exists(file_name)) {
+                download.file(url = file_url , destfile = file_name)  
+        }
+}
+
+training_file <- 'pml-training.csv'
+testing_file <- 'pml-testing.csv'
+
+training_file_url <- 'http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv'
+testing_file_url <- 'http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv'
+
+download_file(training_file, training_file_url)
+download_file(testing_file, testing_file_url)
+
+training_data <- read.csv(training_file, na.strings=c("",NA))
+testing_data <- read.csv(testing_file,na.strings=c("",NA))
+```
+
+###Process data
+
+First look at the training and testing files to determine which columns are relavent to the prediction.
+
+```{r}
+dim(training_data)
+colnames(training_data)
+```
+
+training_data has 160 variables. The first 7 columns Columns "X", "user_name", "raw_timestamp_part_1", 
+"raw_timestamp_part_2", "cvtd_timestamp", "new_window" and "num_window" can be discarded since they have nothing to do with whether a subject performed the excerises correctly. 
+
+```{r}
+dim(testing_data)
+colnames(testing_data)
+```
+
+testing_data has 160 variables too.
+Let's see if training_data and testing_data have identical column names:
+
+```{r}
+which(!mapply(identical,colnames(training_data),colnames(testing_data)))
+```
+
+It turns out  training_data and testing_data have the same names for columns 1:159. For the last(160) column, it is "classe" in training_data and "problem_id" in testing_data. Because the outcome of testing_data is going to be predicted by the model, it is OK for testing_data not to have a "classe" column. On the other hand, "problem_id" is irrelavent to how a subject performed his excercises, so we'll discard that column from testing_data. 
+
+Now remove colums 1:7 (columns "X", "user_name", "raw_timestamp_part_1", "raw_timestamp_part_2", "cvtd_timestamp", "new_window" and "num_window") from testing_data and training_data; also remove last column(160) "problem_id"" from testing_data:
+
+
+```{r}
+
+training_data <- training_data[-c(1,2,3,4,5,6,7)]
+testing_data <- testing_data[-c(1,2,3,4,5,6,7,160)]
+
+```
+
+Next, let's see which columns in training_data have NAs and the percentages of values that are NAs in those columns:
+
+```{r}
+#This function takes a data frame as input and returns a character vector of the 
+#names of columns that contain NAs in this data frame
+cols_w_nas <- function(df) {
+        colnames(df)[sapply(df, function(x) any(is.na(x)))]
+}
+
+#This fuction takes a data frame as input and returns a numeric vector whose names
+#are the column names of the data frame and values are the percentage of NAs 
+#in each column.
+na_percentage <- function(df){
+       sapply(df, function(x) sum(is.na(x))/length(x)  )
+}
+
+#A subset of training_data which consists of all columns that have NAs
+na_cols <-  training_data[cols_w_nas(training_data)]
+#The percentage of NAs in each column that contain NAs
+na_cols_percentage = na_percentage(na_cols)
+
+summary(na_cols_percentage)
+
+```
+
+Above shows that in each column containing NAs in training_data, 97.93% of all values are NAs. Obviously these columns won't make sensible predictors for the model. Let's only keep columns that have no NAs:
+
+```{r}
+training_data <- training_data[! training_data %in% na_cols]
+testing_data <- testing_data[colnames(testing_data)[colnames(testing_data) %in% colnames(training_data)]]
+```
+
+
+
+The dimentions of the training_data now is:
+```{r}
+dim(training_data)
+```
+
+##Model building
+
+---
+
+As training_data still has 53 variables (outcome "classe" plus other 52 variables), which is a lot, I decide to try the random forest model and use 10-fold cross validation to estimate how well it works.
+
+
+###Create 10 folds
+```{r}
+library(caret)
+set.seed(32323)
+folds <- createFolds(y=training_data$classe, k=10,
+                         list=TRUE, returnTrain=TRUE)
+```
+
+###Cross validation
+
+Build a model on 9 folds and test with the remaining fold; repeat this process 10 times until every model has been used to build and test the model.
+
+Although a random forest model can be built using either the caret package or randomForest package, the latter is much faster. Therefore we will use the randomForest function from the randomForest package.
+
+For each model built on 9 folds and tested on the remaining 1 fold, we calculate its in sample and out of sample error rate; after  10 repetitions, we find the average of in and out of sample error rates and use the average out of sample error rate to estimate expected out of sample error rate.
+
+```{r}
+library(randomForest)
+
+error_rate = function(values,prediction) {sum(prediction != values)/length(values)}
+
+in_sample_error_rate_sum <- 0 
+out_sample_error_rate_sum <- 0
+
+for (i in 1:10){
+        training <- training_data[-unlist(folds[i]),]
+        testing <-training_data[unlist(folds[i]),]
+        modfit <- randomForest(classe ~ . , data = training)
+        
+        predict.train <- predict(modfit, training)
+        in_sample_error_rate <- error_rate(training$classe,predict.train)
+        predict.test <- predict(modfit, testing)
+        out_sample_error_rate <- error_rate(testing$classe,predict.test)
+        
+        in_sample_error_rate_sum <-in_sample_error_rate_sum + in_sample_error_rate
+        out_sample_error_rate_sum <- out_sample_error_rate_sum + out_sample_error_rate
+}
+
+
+average_in_sample_error_rate <- in_sample_error_rate_sum/10
+average_out_sample_error_rate <- out_sample_error_rate_sum/10
+```
+
+###Estimated out of sample error 
+
+The expected out of sample error is:
+
+```{r}
+average_out_sample_error_rate
+```
+
+The expected out of sample error is excellent. It shows that random forest method works out great for our problem and we don't need to try other mothods.
+
+###Final model and prediction on testing_data
+
+Finally, we build a random forest model on the entire trianing_data and use it to make prediction on testing_data:
+
+```{r}
+final_model <- randomForest(classe ~ . , data = training_data)
+predict.testing_data <- predict(final_model, testing_data)
