@@ -1,0 +1,99 @@
+
+
+Child Height Prediction
+========================================================
+author: Jie Liang
+Date: April 24, 2015
+transition: rotate
+transition-speed: slow
+
+How to predict a child's adult height?
+========================================================
+type: section
+
+
+<small>Have you ever wondered how tall a child will grow up to be?  Here's one formula from Dr.Jay L. Hoecker on [Mayo Clinic:](http://www.mayoclinic.org/healthy-lifestyle/childrens-health/expert-answers/child-growth/faq-20057990)</small>
+
+* <small>Add the mother's height and the father's height in either inches or centimeters.</small>
+* <small>Add 5 inches (13 centimeters) for boys or subtract 5 inches (13 centimeters) for girls.</small>
+* <small>Divide by two.</small>
+
+<small>Most children will reach an adult height within 4 inches (10 centimeters) of this estimation.</small>
+
+
+Visualization
+========================================================
+type: section
+
+
+```{r, echo=FALSE}
+library(scatterplot3d)
+
+# Given that male height is normally distributed with a mean of 70 inches 
+# and a standard deviation of 4 inches, and female height is normally distributed 
+# with a mean of 65 inches and a standard deviation of 3.5 inches, let's use
+# simulation to create a visulization as follows:
+
+set.seed(3415)
+# a vector of 100 random dads' height from the male height distribution.
+dads <- rnorm(n = 100, mean = 70, sd = 4) 
+# a vector of 100 random moms' height from the female height distribution.
+moms <- rnorm(n = 100,mean = 65, sd = 3.5)
+# a vector of 100 predicted boys' height based on the model
+boys <- (moms+dads+5)/2
+# a vector of 100 a predicted girls' height based on the model
+girls <- (moms+dads-5)/2
+
+par(mar=c(0,0,0,0))
+par("bg"="transparent")
+# plot boys' height vs. parents' height in blue
+p1 <- scatterplot3d(moms,dads,boys,color="cyan",
+    cex.lab =1.5, cex.main=2,cex.axis=1.5,
+    col.main="white",col.lab="white",
+    frame.plot=F,
+    bg="transparent",
+    col.axis = "white",
+    col.grid = "gray84",pch=20, 
+    xlab="Mother's height (inches)",
+    ylab="Father's height (inches)",
+    zlab="Predicted child's height (inches)",
+    main="Child height prediction")
+# add girls' height vs. parents' height in pink
+p1$points3d(moms,dads,girls,col="magenta",pch=20)
+# add legend
+legend(p1$xyz.convert(62, 65, 78), 
+       box.col="white",text.col="white",
+       col = c("cyan","magenta"),cex=1.4,
+       legend=c("boys","girls"),lwd=2, bg="transparent")
+```
+Examples
+========================================================
+type: section
+
+
+* Boy with mom 5'5" and dad 6'2" will be (inches):
+
+```{r}
+((5*12+5) + (6*12+2) + 5)/2
+```
+* Girl with mom 160 cm and dad  175 cm will be (cm):
+```{r}
+ (160 + 175 - 13)/2
+```
+
+
+A better way
+========================================================
+type: section
+
+Wait...that looks a bit confusing with different units and gender...
+
+No worries, use my shiny app [height predictor](https://jieliang.shinyapps.io/child_height_prediction/) instead:
+
+- **Click a tab to choose units.**
+- **Use sliders to enter parents' height.**
+- **Click a button to select gender.**
+
+Tada! The prediction pops out by magic!
+
+
