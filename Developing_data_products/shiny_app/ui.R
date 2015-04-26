@@ -31,7 +31,7 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                 min = 3, max = 7,value = 5)),
                         column(5,
                             sliderInput("mom_height_inches","inches",
-                                min = 0, max = 12, value = 4))),
+                                min = 0, max = 11, value = 4))),
                     fluidRow(
                         column(11, offset=1,
                             strong(helpText("Father's height")))),  
@@ -41,7 +41,7 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                 min = 3,max = 7,value = 5)),
                         column(5,
                             sliderInput("dad_height_inches","inches",
-                                min = 0, max = 12, value = 9)))),
+                                min = 0, max = 11, value = 9)))),
                 
                 # tab for metric units
                 tabPanel("Metric Units",value="Metric",br(),br(), br(),
